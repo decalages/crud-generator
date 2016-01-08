@@ -228,13 +228,16 @@ class CrudViewCommand extends Command
     {
         $formGroup =
             <<<EOD
-            <div class="form-group {{ \$errors->has('%1\$s') ? 'has-error' : ''}}">
-                {!! Form::label('%1\$s', '%2\$s: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    %3\$s
-                    {!! \$errors->first('%1\$s', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>\n
+            
+                <div class="col-md-12">
+                    <div class="form-group {{ \$errors->has('%1\$s') ? 'has-error' : ''}}">
+                        {!! Form::label('%1\$s', '%2\$s ', ['class' => 'control-label']) !!}
+                            %3\$s
+                            {!! \$errors->first('%1\$s', '<span class="help-block">:message</span>') !!}
+                    </div>\n
+                </div>\n
+           
+
 EOD;
 
         return sprintf($formGroup, $item['name'], ucwords(strtolower(str_replace('_', ' ', $item['name']))), $field);

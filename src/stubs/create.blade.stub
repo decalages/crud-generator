@@ -1,27 +1,88 @@
-@extends('layouts.master')
+@extends('layouts.default')
 
 @section('content')
 
-    <h1>Create New %%modelName%%</h1>
-    <hr/>
+<div class="row">
+{!! Form::open(['url' => '%%routeGroup%%%%crudName%%', 'class' => 'form-horizontal']) !!}
 
-    {!! Form::open(['url' => '%%routeGroup%%%%crudName%%', 'class' => 'form-horizontal']) !!}
-
-    %%formFieldsHtml%%
-
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+    {{-- Colonne de gauche--}}
+    <div class="col-md-8">  
+        <div class="widget">
+            <div class="widget-header transparent">
+                <h2>Ajouter un %%modelName%%</h2>
+            </div>
+            <div class="widget-content padding">
+                %%formFieldsHtml%%
+            </div>
         </div>
-    </div>
-    {!! Form::close() !!}
 
-    @if ($errors->any())
-        <ul class="alert alert-danger">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+
+        <!-- Form Actions -->
+        <div class="row form-group">
+            <div class="col-md-12">
+                <br/>
+                {!! Form::submit('Enregistrer', ['class' => 'btn btn-success submit']) !!}
+            </div>
+        </div>
+        <!-- ./ form actions -->
+    </div>
+
+    {{-- Colonne de droite--}}
+    <div class="col-md-4">
+
+        <div class="widget">
+            <div class="widget-content padding">
+                <div class="form-group">
+                    <div class="col-md-12">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div><!-- col-md-4 -->
+{!! Form::close() !!}
+</div>
+
+@if ($errors->any())
+    <ul class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+@endif    
+    
 
 @endsection
+
+@section('css')
+<link href="/assets/admin/libs/froala/css/froala_editor.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/admin/libs/froala/css/froala_style.min.css"  rel="stylesheet" type="text/css">
+@stop
+
+{{-- Scripts --}}
+@section('scripts')
+<script src="/assets/admin/libs/froala/js/froala_editor.min.js"></script>
+<script src="/assets/admin/libs/froala/js/plugins/lists.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+          $('#textarea').editable({
+            inlineMode: false,
+            theme: 'gray',
+            imageUpload: false,
+            buttons: ['bold', 'italic', 'underline','sep', 'align', 'insertOrderedList', 'insertUnorderedList', 'outdent', 'indent', 'sep', 'undo', 'redo' , 'html']
+
+
+            $(".submit").click(function () {
+                $(".submit").attr("disabled", true);
+                return true;
+            });
+
+
+      });
+
+</script>
+@stop
